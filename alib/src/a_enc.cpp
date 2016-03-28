@@ -6,7 +6,7 @@
 // This implementation uses the base64 encoding code from the Apache Web
 // Seerver. The copyright of this code is:
 //
-//		Copyright 2000-2005 The Apache Software Foundation or its 
+//		Copyright 2000-2005 The Apache Software Foundation or its
 //		licensors, as applicable.
 //
 // The remainder of the code is covered by the normal ALib copyright:
@@ -24,7 +24,7 @@ using std::vector;
 
 //---------------------------------------------------------------------------
 
-namespace ALib {	
+namespace ALib {
 
 
 //---------------------------------------------------------------------------
@@ -60,8 +60,8 @@ static const unsigned char pr2six[256] =
 static int apr_base64_decode_len(const char *bufcoded)
 {
     int nbytesdecoded;
-    register const unsigned char *bufin;
-    register int nprbytes;
+    const unsigned char *bufin;
+    int nprbytes;
 
     bufin = (const unsigned char *) bufcoded;
     while (pr2six[*(bufin++)] <= 63);
@@ -81,9 +81,9 @@ static int apr_base64_decode( unsigned char *bufplain,
 								 const char *bufcoded)
 {
     int nbytesdecoded;
-    register const unsigned char *bufin;
-    register unsigned char *bufout;
-    register int nprbytes;
+    const unsigned char *bufin;
+    unsigned char *bufout;
+    int nprbytes;
 
     bufin = (const unsigned char *) bufcoded;
     while (pr2six[*(bufin++)] <= 63);
@@ -132,7 +132,7 @@ static const char basis_64[] =
 //---------------------------------------------------------------------------
 // Apache code - given length of un-encoded string, get legth of encoding
 //---------------------------------------------------------------------------
- 
+
 int apr_base64_encode_len(int len)
 {
     return ((len + 2) / 3 * 4) + 1;
@@ -184,7 +184,7 @@ string Base64Encode( const string & s ) {
 	int blen = apr_base64_encode_len( s.size() );
 	vector <char> buf( blen + 1);
 	apr_base64_encode( &buf[0], (const unsigned char *) s.c_str(), s.size() );
-	return &buf[0];		
+	return &buf[0];
 }
 
 //---------------------------------------------------------------------------
@@ -229,7 +229,7 @@ static unsigned int HexToNibble( unsigned char hd )  {
 	}
 	else {
 		ATHROW( "Invalid hex digit '" << hd << "'" );
-	} 
+	}
 }
 
 //---------------------------------------------------------------------------
@@ -260,11 +260,11 @@ string StrToHex( const string & s ) {
 //---------------------------------------------------------------------------
 // Convert 2 hex digits at position 'pos' to numeric value in range 0 - 255
 //---------------------------------------------------------------------------
-	
+
 unsigned char HexToChar( const string & s, unsigned int pos ) {
 	unsigned int n1 = HexToNibble( s[pos] );
 	unsigned int n2 = HexToNibble( s[pos + 1] );
-	return n1 * 16 + n2;			
+	return n1 * 16 + n2;
 }
 
 //---------------------------------------------------------------------------

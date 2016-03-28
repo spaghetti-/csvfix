@@ -128,16 +128,10 @@ class RegEx::CharBitMap {
 		}
 
 		void Add( unsigned char c ) {
-			if ( c >= MAXSIZE ) {
-				ATHROW( "Character value " << int(c) << " too big" );
-			}
 			mBits.set( c );
 		}
 
 		bool Contains( unsigned char c ) const {
-			if ( c >= MAXSIZE ) {
-				ATHROW( "Character value " << int(c) << " too big" );
-			}
 			return mBits.test( c );
 		}
 
@@ -151,7 +145,7 @@ class RegEx::CharBitMap {
 
 		string ToString() const {
 			string s;
-			for ( unsigned char i = 0; i < MAXSIZE; i++ ) {
+			for ( unsigned char i = 0; i <= MAXSIZE - 1; i++ ) {
 				if ( Contains( i ) ) {
 					if ( i < ' ' ) {
 						s += '.';
