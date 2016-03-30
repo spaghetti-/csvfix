@@ -72,22 +72,15 @@ int CheckCommand :: Execute( ALib::CommandLine & cmd ) {
 
 	for( unsigned int i = 0; i < io.InStreamCount(); i++ ) {
 		CSVChecker chk( io.CurrentFileName(), io.In( i ), mSep, true, mEmbedNLOk );
-		try {
-			while( chk.NextRecord( row ) ) {
-			}
-			if ( mVerbose ) {
-				std::cout << io.CurrentFileName() << " - OK" << std::endl;
-			}
-		}
-		catch( const CSVED::Exception & e  ) {
-			if ( mQuiet ) {
-				return 1;
-			}
-			else {
-				errors++;
-				std::cout << e.what() << std::endl;
-			}
-		}
+		while (true) {
+		    try {
+                while (chk.NextRecord(row)) {
+                }
+                break;
+            } catch(const CSVED::Exception& e) {
+                std::cout << e.what() << std::endl;
+            }
+        }
 	}
 	return errors == 0 ? 0 : 1;
 }
